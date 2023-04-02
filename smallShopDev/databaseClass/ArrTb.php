@@ -111,7 +111,7 @@ class ArrTb
              $str .= "<input type='text' name= 'quantity' value=1 />";
              $str .= '</td>'; 
              $str .= "<input type='hidden' name='idProduct' value=$id />";
-             //$str .= "<input type='hidden' name='dbCommandId' value=$id />";
+             $str .= "<input type='hidden' name='dbCommandId' value=$id />";
 
              $str .= '<td>'; 
 
@@ -138,11 +138,15 @@ class ArrTb
 
         $str ='<table border=1';
 
+        $str .= "<form action= 'buy1.php' method= 'POST' >";            
+
+        $str .= '<tr>';
+
+
         foreach ($this->arrs as $row)
         {
   
             $str .= '<tr>';
-//            $str .= "<form action= 'buy1.php' method= 'POST' >";            
 
 
             foreach ($row as $key => $value)
@@ -168,16 +172,21 @@ class ArrTb
 
              }
 
-//             $str .= '<td>'; 
+             $str .= '<td>'; 
 //             $str .= "<input type='text' name= 'quantity' value=1 />";
 //             $str .= '</td>'; 
 //             $str .= "<input type='hidden' name='idProduct' value=$id />";
+             $str .= "<input type='hidden' name='dbCommandId' value=$dbCommandIdid />";
 
-//             $str .= '<td>'; 
+             $str .= '</td>'; 
 
-//             $str .= "<input type='submit' value='buy' />";
-//             $str .= "</form>";
-//             $str .= '</td>'; 
+
+
+             $str .= '<td>'; 
+
+             $str .= "<input type='submit' value='buy' />";
+             $str .= "</form>";
+             $str .= '</td>'; 
           
              
 
