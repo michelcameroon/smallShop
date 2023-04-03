@@ -6,7 +6,7 @@ print ('<th>');
 print ("<a href='index.php'>Home</a>");
 print ('</th>');
 print ('<th>');
-print ("<a href='buy.php'>buy</a>");
+print ("<a href='buyProduct.php'>buy</a>");
 print ('</th>');
 print ('<th>');
 print ("<a href='contact.php'>Contact</a>");

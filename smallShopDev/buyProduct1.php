@@ -1,10 +1,12 @@
 <?php
-echo '<br>begin buy1<br>';
+//echo '<br>begin buyProduct1<br>';
 $post = $_POST;
 $price = $post['price'];
 $howMany = $post['howMany'];
 
-print_r ($post);
+//print_r ($post);
+
+//exit();
 $idProduct = $post['idProduct'];
 //$howMany = $post['howMany'];
 $commandId = $post['commandId'];
@@ -12,11 +14,10 @@ $commandId = $post['commandId'];
 //echo '<br>begin buy<br>';
 include_once 'menu.php';
 include_once 'databaseClass/DatabaseClass.php';
-include_once 'databaseClass/ArrTb.php';
+//include_once 'databaseClass/ArrTb.php';
 
 print ('<h1>buyProduct1</h1>');
 
-//$GLOBALS['newCommand'] = True;
 
 $pwd = '';
 $pwd = getcwd();
@@ -24,123 +25,178 @@ $pwd = getcwd();
 chdir('databaseClass');
 $pwd = getcwd();
 //print ($pwd);
-//print ('<br>before new<br> ');
-//print ('dbhost');
-//print ($dbhost);
-//print ('<br>');
-//print ($dbuser);
-//print ('dbuser');
+
+
 $db1 = new DatabaseClass($dbhost, $dbuser, $dbpass, $dbname);
-//$db1 = new DatabaseClass('localhost', 'smallShop', 'smallShop', 'smallShop');
+
 
 
 
 // list commandLine
-//$sql = 'select * from commandLine where fkCommand = ' . $db1->dbCommandId;
-//$sql = 'select * from commandLine where fkCommand = ' . $dbCommandId;
-$sql = 'select * from commandLine where fkCommand = ' . $commandId;
 
-print ($sql);
-
-
-//$db1->list
-$commandLines = $db1->Select($sql);
-print ('<br>commandLine<br>');
-print_r ($commandLines);
-/*
-if (empty($commandLines)) {
-    echo 'le basket est encore vide $var is either 0, empty, or not set at all';
-
-    // create a new command
-    $now1 = date('Y-m-d H:i:s');
-    print ($now1);
-
-    print ('now = ');
-    print ($now1);
-    //    $sql = 'insert into command (now, total) values (now(), 0)';
-    //    $sql = "insert into command (now, total) values ('2022/05/05', 0)";
-    $sql = "insert into command (now, total) values ('$now1', 0)";
-    //    $sql = "insert into command (now, total) values ('2023-03-30 15:02:03>
-    print ($sql);       
-    $dbCommandId = $db1->Insert($sql);
-    //$db1->dbCommandId = $db1->Insert($sql);
-    $db1->dbCommandId = $dbCommandId;
-
-    //$dbCoomandId = $db1->Insert($sql);
-    //$db1->dbCommandId = $db1->Insert($sql);
-    print ($dbCommandId);
+//$sql = 'select * from commandLine where fkCommand = ' . $commandId;
+//$sql = 'select product.name, product.price, commandLine.howMany from product, commandLine where fkCommand = ' . $commandId . ' and commandLine.fkCommand = product.id';
+//$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId ;
 
 
-}
-*/
+
+//print ($sql);
+
+
+
+//$commandLines = $db1->Select($sql);
+
+//print_r ($commandLines);
+
 
 // insert in commandLine
 
 $subTotal = $howMany * $price;
-print ('<br>subtotal = <br>');
-print ($subTotal);
+
+//print ($subTotal);
  
 $sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values ($commandId, $idProduct, $howMany, $subTotal)"; 
-print ($sql);
+//print ($sql);
+
 $commandLineInsertId = $db1->insert($sql);
-print ('<br>commandLineInsertId = <br>'); 
-print ($commandLineInsertId); 
+
+//print ($commandLineInsertId); 
 
 // list commandLine
-//$sql = 'select * from commandLine where fkCommand = ' . $db1->dbCommandId;
-$sql = 'select * from commandLine where fkCommand = ' . $commandId;
-//$sql = 'select * from commandLine where fkCommand = ' . $dbCommandId;
 
-print ($sql);
+//$sql = 'select * from commandLine where fkCommand = ' . $commandId;
+//$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id' ;
+//$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by product.id desc' ;
+$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
 
 
-//$db1->list
+
+
+//print ($sql);
+
+
 $commandLines = $db1->Select($sql);
-print ('<br>commandLine<br>');
-
-print ('commandLines = ');
-print_r ($commandLines);
 
 
+//print_r ($commandLines);
 
-$commandId = $commandLines['fkCommand'];
-print  ('commandId = <br>');
-print  ($commandId);
+
+
+//$commandId = $commandLines['fkCommand'];
+
+//print  ($commandId);
 
 print  ('<table border=1>');
 print ( '<tr>');
+print ( '<td>');
 
-print ('<td>');
 
+
+// th header of table
+
+//if ($commandTotal == 0)
+//    $commandTotal = $subTotal;
+
+
+print ('<br>list commandLines<br>');
 
 print ('<table border=1');
+print ( '<tr>');
 
+print ('<td>'); 
+
+print ('</td>');
+print ('<td>');
+print ('</td>');
+print ('<td>');
+print ('</td>');
+
+/*
+print ('<td>');
+
+print ("<form action= 'commandEnd.php' method= 'POST' >");            
+print ("<input type='text' name='commandTotal' value=$commandTotal />");
+print ("<input type='submit' value='finish command' />");
+print ("</form>");
+print ('</td>'); 
+*/
+print ( '</tr>');
+
+
+/*
+print ('<tr>');
+print ('<th>');
+print ('commandLines');
+print ('/<th>');
+print ('</tr>');
+*/
 //foreach ($this->arrs as $row)
+
+// titel in table th
+
+print ( '<tr>');
+print ('<th>');
+print ('name');
+print ('</th>');
+print ('<th>');
+print ('price');
+print ('</th>');
+print ('<th>');
+print ('howMany');
+print ('</th>');
+print ('<th>');
+print ('subTotal');
+print ('</th>');
+
+print ( '/<tr>');
+
+
+
+print ('<tr>');
+
+
+print ('<td>'); 
+
+
+
+
+
+
 foreach ($commandLines as $row)
 {
   
     print ('<tr>');
+
+
+
+
     print ("<form action= 'buyUpdate.php' method= 'POST' >");            
             
-
+    $th = 0;
     foreach ($row as $key => $value)
     {
 
 
-        print ('<td>'); 
         if ($key== 'id')
         {
             $id = $value;
             //print ('<br>$id<br>');
+            //print ($value);
         }
         else
         {
+            print ('<td>'); 
             //print ($value);
             if ($key == 'fkCommand')
             {
                 $commandId = $value;
             }
-            
+            if ($key == 'subTotal')
+            {
+                 $commandTotal = $commandTotal + $value;
+                 //print ($commandTotal);
+
+            }
             print ($value);
             print ('</td>');
         }
@@ -176,7 +232,29 @@ foreach ($commandLines as $row)
 //        $str .= '</form>';
 
 }
-//print ('</tr>');
+
+ 
+print ('</tr>');
+print ('<tr>');
+print ('<td>');
+print ('</td>');
+print ('<td>');
+print ('</td>');
+print ('<td>');
+print ('</td>');
+print ('<td>');
+
+print ("<form action= 'commandEnd.php' method= 'POST' >");            
+print ("<input type='text' name='commandTotal' value=$commandTotal />");
+print ("<input type='submit' value='finish command' />");
+print ("</form>");
+
+print ('</td>'); 
+
+
+print ('</tr>');
+
+
 print ('</table>');
 
 // new commandLine
@@ -228,14 +306,13 @@ foreach ($products as $row)
 
 
 
-}
+    }
     print ('<td>'); 
     print ("<input type='hidden' name= 'price' value=$price />" );
     print ("<input type='text' name= 'howMany' value=1 />" );
     print ('</td>'); 
     print ("<input type='hidden' name='idProduct' value=$id />");
     print ("<input type='hidden' name='commandId' value=$commandId />");
-
     print ('<td>'); 
 
     print ("<input type='submit' value='buy' />");
