@@ -1,15 +1,17 @@
-<?php
+<?php 
 //echo '<br>begin buyProduct1<br>';
 $post = $_POST;
 $price = $post['price'];
 $howMany = $post['howMany'];
 
-//print_r ($post);
+print_r ($post);
 
 //exit();
-$idProduct = $post['idProduct'];
+//$idProduct = $post['idProduct'];
+$fkProduct = $post['fkProduct'];
 //$howMany = $post['howMany'];
-$commandId = $post['commandId'];
+//$commandId = $post['commandId'];
+$fkCommand = $post['fkCommand'];
 
 //echo '<br>begin buy<br>';
 include_once 'menu.php';
@@ -55,8 +57,10 @@ $subTotal = $howMany * $price;
 
 //print ($subTotal);
  
-$sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values ($commandId, $idProduct, $howMany, $subTotal)"; 
-//print ($sql);
+//$sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values ($commandId, $idProduct, $howMany, $subTotal)"; 
+//$sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values ($commandId, $idProduct, $howMany, $subTotal)"; 
+$sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values ($fkCommand, $fkProduct, $howMany, $subTotal)"; 
+print ($sql);
 
 $commandLineInsertId = $db1->insert($sql);
 
@@ -67,13 +71,12 @@ $commandLineInsertId = $db1->insert($sql);
 //$sql = 'select * from commandLine where fkCommand = ' . $commandId;
 //$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id' ;
 //$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by product.id desc' ;
-//$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
-$sql = 'select commandLine.id, product.name, product.price, commandLine.howMany, subTotal, fkCommand, fkProduct from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
+$sql = 'select commandLine.id, product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $fkCommand . ' and fkProduct = ' . $fkProduct . ' order by commandLine.id desc ' ;
 
 
 
 
-//print ($sql);
+print ($sql);
 
 
 $commandLines = $db1->Select($sql);
@@ -182,22 +185,20 @@ foreach ($commandLines as $row)
         {
             $id = $value;
             //print ('<br>$id<br>');
-            print ($value);
+            //print ($value);
         }
         else
         {
             print ('<td>'); 
             //print ($value);
-            if ($key == 'fkCommand')
-            {
-                $fkCommand = $value;
-                print ($fkCommand);
-            }
-
             if ($key == 'fkProduct')
             {
                 $fkProduct = $value;
-                print ($fkProduct);
+            }
+
+            if ($key == 'fkCommand')
+            {
+                $fkCommand = $value;
             }
 
             if ($key == 'subTotal')
@@ -215,8 +216,12 @@ foreach ($commandLines as $row)
     print ('<td>'); 
     //print ("<input type='text' name= 'quantity' value=1 />");
     print ('</td>'); 
-    print ("<input type='hidden' name='idProduct' value=$id />");
-    print ("<input type='hidden' name='commandId' value=$commandId />");
+
+    print ("<input type='hidden' name='id' value= $id />");
+    print ("<input type='hidden' name='fkProduct' value=$fkProduct />");
+    print ("<input type='hidden' name='fkCommand' value=$fkCommand />");
+    //print ("<input type='hidden' name='commandId' value=$commandId />");
+
     print ('</td>'); 
 
     print ('<td>'); 
@@ -228,9 +233,11 @@ foreach ($commandLines as $row)
     print ('<td>'); 
 
     print ("<form action= 'buyDelete.php' method= 'POST' >");            
-    print ("<input type='text' name='fkProduct' value=$fkProduct />");
-    print ("<input type='text' name='fkCommand' value=$fkCommand />");
-    print ("<input type='text' name='id' value=$id />");
+    
+    print ("<input type='text' name='id' value= $id />");
+    print ("<input type='hidden' name='fkProduct' value=$fkProduct />");
+    print ("<input type='hidden' name='fkCommand' value=$fkCommand />");
+    
     print ("<input type='submit' value='delete' />");
     print ("</form>");
     print ('</td>'); 
@@ -238,7 +245,7 @@ foreach ($commandLines as $row)
 
           
              
-
+ 
 
 //        $str .= '</form>';
 

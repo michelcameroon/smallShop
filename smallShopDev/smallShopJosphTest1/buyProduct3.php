@@ -1,12 +1,19 @@
 <?php
-//echo '<br>begin buyProduct1<br>';
+echo 'aaa';
+exit();
+
+
+?>
+
+<?php
+echo '<br>begin buyProduct3<br>';
+
 $post = $_POST;
 $price = $post['price'];
 $howMany = $post['howMany'];
 
 //print_r ($post);
 
-//exit();
 $idProduct = $post['idProduct'];
 //$howMany = $post['howMany'];
 $commandId = $post['commandId'];
@@ -34,7 +41,7 @@ $db1 = new DatabaseClass($dbhost, $dbuser, $dbpass, $dbname);
 
 // list commandLine
 
-//$sql = 'select * from commandLine where fkCommand = ' . $commandId;
+$sql = 'select * from commandLine where fkCommand = ' . $commandId;
 //$sql = 'select product.name, product.price, commandLine.howMany from product, commandLine where fkCommand = ' . $commandId . ' and commandLine.fkCommand = product.id';
 //$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId ;
 
@@ -44,8 +51,18 @@ $db1 = new DatabaseClass($dbhost, $dbuser, $dbpass, $dbname);
 
 
 
-//$commandLines = $db1->Select($sql);
+$commandLines = $db1->Select($sql);
 
+
+if ($commandLines.isempty())
+{
+    print ('basket is empty)
+    // new command
+
+}
+else
+{
+/*
 //print_r ($commandLines);
 
 
@@ -60,6 +77,9 @@ $sql = "insert into commandLine (fkCommand, fkProduct, howMany, subtotal) values
 
 $commandLineInsertId = $db1->insert($sql);
 
+
+
+
 //print ($commandLineInsertId); 
 
 // list commandLine
@@ -67,8 +87,7 @@ $commandLineInsertId = $db1->insert($sql);
 //$sql = 'select * from commandLine where fkCommand = ' . $commandId;
 //$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id' ;
 //$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by product.id desc' ;
-//$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
-$sql = 'select commandLine.id, product.name, product.price, commandLine.howMany, subTotal, fkCommand, fkProduct from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
+$sql = 'select product.name, product.price, commandLine.howMany, subTotal from product, commandLine where fkCommand = ' . $commandId . ' and fkProduct = product.id order by commandLine.id desc' ;
 
 
 
@@ -112,25 +131,10 @@ print ('</td>');
 print ('<td>');
 print ('</td>');
 
-/*
-print ('<td>');
-
-print ("<form action= 'commandEnd.php' method= 'POST' >");            
-print ("<input type='text' name='commandTotal' value=$commandTotal />");
-print ("<input type='submit' value='finish command' />");
-print ("</form>");
-print ('</td>'); 
-*/
 print ( '</tr>');
 
 
-/*
-print ('<tr>');
-print ('<th>');
-print ('commandLines');
-print ('/<th>');
-print ('</tr>');
-*/
+
 //foreach ($this->arrs as $row)
 
 // titel in table th
@@ -182,7 +186,7 @@ foreach ($commandLines as $row)
         {
             $id = $value;
             //print ('<br>$id<br>');
-            print ($value);
+            //print ($value);
         }
         else
         {
@@ -190,16 +194,8 @@ foreach ($commandLines as $row)
             //print ($value);
             if ($key == 'fkCommand')
             {
-                $fkCommand = $value;
-                print ($fkCommand);
+                $commandId = $value;
             }
-
-            if ($key == 'fkProduct')
-            {
-                $fkProduct = $value;
-                print ($fkProduct);
-            }
-
             if ($key == 'subTotal')
             {
                  $commandTotal = $commandTotal + $value;
@@ -227,10 +223,8 @@ foreach ($commandLines as $row)
 
     print ('<td>'); 
 
-    print ("<form action= 'buyDelete.php' method= 'POST' >");            
-    print ("<input type='text' name='fkProduct' value=$fkProduct />");
-    print ("<input type='text' name='fkCommand' value=$fkCommand />");
-    print ("<input type='text' name='id' value=$id />");
+    print ("<form action= 'buydelete.php' method= 'POST' >");            
+    print ("<input type='hidden' name='idProduct' value=$id />");
     print ("<input type='submit' value='delete' />");
     print ("</form>");
     print ('</td>'); 
@@ -241,7 +235,7 @@ foreach ($commandLines as $row)
 
 
 //        $str .= '</form>';
-
+*/
 }
 
  
@@ -265,7 +259,7 @@ print ('</td>');
 
 print ('</tr>');
 
-
+}
 print ('</table>');
 
 // new commandLine
