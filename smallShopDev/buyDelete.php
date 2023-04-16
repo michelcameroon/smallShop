@@ -69,12 +69,13 @@ $sql = 'delete from commandLine where id = ' . $id;
 //print ($sql);
 $bool = $db1->Remove($sql);
 
-    print ("<form action= 'buyProduct1.php' method= 'POST' >");            
-    print ("<input type='text' name='fkProduct' value=$fkProduct />");
-    print ("<input type='text' name='fkCommand' value=$fkCommand />");
-    print ("<input type='text' name='id' value=$id />");
-    print ("<input type='submit' value='delete ok back to shopping' />");
-    print ("</form>");
+print ("<form action= 'buyProduct1.php' method= 'POST' >");            
+print ("<input type='text' name='fkProduct' value=$fkProduct />");
+print ("<input type='text' name='fkCommand' value=$fkCommand />");
+print ("<input type='text' name='id' value=$id />");
+print ("<input type='text' name='fromDelete' value=1 />");
+print ("<input type='submit' value='delete ok back to shopping' />");
+print ("</form>");
 
 
 

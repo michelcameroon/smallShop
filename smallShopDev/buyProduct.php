@@ -44,7 +44,8 @@ $sql = "insert into command (now, total) values ('$now1', 0)";
 
 //print ($sql);       
 
-$commandId = $db1->Insert($sql);
+//$commandId = $db1->Insert($sql);
+$fkCommand = $db1->Insert($sql);
 
 $db1->dbCommandId = $commandId;
 
@@ -98,8 +99,8 @@ foreach ($products as $row)
     print ("<input type='hidden' name= 'price' value=$price />" );
     print ("<input type='text' name= 'howMany' value=1 />" );
     print ('</td>'); 
-    print ("<input type='hidden' name='idProduct' value=$id />");
-    print ("<input type='hidden' name='commandId' value=$commandId />");
+    print ("<input type='hidden' name='fkProduct' value=$id />");
+    print ("<input type='hidden' name='fkCommand' value=$fkCommand />");
 
     print ('<td>'); 
 
